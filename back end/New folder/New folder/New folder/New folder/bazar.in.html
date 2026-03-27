@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Bazar.in — Elegant Crimson & Maroon Edition</title>
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --bg: #FDF8F0;
+    --surface: #FFFCF8;
+    --surface2: #FAF3E8;
+    --ink: #2C1810;
+    --ink2: #5C3A2A;
+    --ink3: #8B6B5A;
+    --crimson: #9D1F2C;
+    --crimson-dark: #7A1822;
+    --maroon: #6D2E2A;
+    --maroon-light: #8B453F;
+    --gold: #C6A43B;
+    --gold-light: #E2C28B;
+    --cream: #FEF7E6;
+    --border: #E8DDD0;
+    --radius: 20px;
+    --shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.1);
+    --ff: 'Inter', system-ui, sans-serif;
+    --fd: 'Playfair Display', Georgia, serif;
+  }
+
+  body {
+    font-family: var(--ff);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  .custom-nav {
+    background: linear-gradient(135deg, #2C1810 0%, #3A241C 100%);
+    backdrop-filter: blur(0);
+    padding: 0.75rem 2rem;
+    border-bottom: 2px solid var(--gold);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  }
+  .navbar-brand {
+    font-family: var(--fd);
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: var(--gold) !important;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    cursor: pointer;
+  }
+  .navbar-brand em { color: var(--crimson); font-style: normal; font-weight: 900; }
+  .nav-link-custom {
+    color: rgba(255,245,235,0.85) !important;
+    font-weight: 500;
+    transition: 0.2s;
+    cursor: pointer;
+    font-family: var(--ff);
+  }
+  .nav-link-custom:hover { color: var(--gold) !important; background: rgba(198,164,59,0.15); border-radius: 40px; }
+  .cart-icon {
+    position: relative;
+    cursor: pointer;
+    color: var(--gold);
+    font-size: 1.4rem;
+    margin-left: 0.5rem;
+    transition: 0.2s;
+  }
+  .cart-icon:hover { color: #E2C28B; transform: scale(1.05); }
+  .cart-count {
+    position: absolute;
+    top: -8px;
+    right: -12px;
+    background: var(--crimson);
+    font-size: 0.65rem;
+    font-weight: bold;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 30px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+  .user-greeting {
+    color: var(--cream);
+    font-size: 0.85rem;
+    background: rgba(198,164,59,0.2);
+    padding: 6px 14px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(198,164,59,0.3);
+  }
+  .user-avatar {
+    width: 28px;
+    height: 28px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: var(--maroon);
+    font-size: 0.75rem;
+  }
+  .robot-icon-btn {
+    background: linear-gradient(135deg, var(--crimson) 0%, var(--maroon) 100%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 12px rgba(157,31,44,0.4);
+    margin-left: 12px;
+    text-decoration: none;
+    border: 2px solid var(--gold);
+  }
+  .robot-icon-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 18px rgba(157,31,44,0.6);
+  }
+  .robot-icon-btn i {
+    font-size: 1.8rem;
+    color: var(--gold);
+  }
+
+  .page { display: none; min-height: 100vh; }
+  .page.active { display: block; }
+
+  .btn-primary-custom { 
+    background: linear-gradient(135deg, var(--crimson) 0%, var(--maroon) 100%);
+    color: var(--cream); 
+    border: none; 
+    border-radius: 40px; 
+    padding: 12px 32px; 
+    font-weight: 600; 
+    transition: 0.3s;
+    box-shadow: 0 4px 12px rgba(157,31,44,0.3);
+  }
+  .btn-primary-custom:hover { 
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(157,31,44,0.4);
+    background: linear-gradient(135deg, var(--crimson-dark) 0%, #5A2520 100%);
+  }
+  .btn-outline-custom {
+    background: transparent;
+    border: 2px solid var(--crimson);
+    color: var(--crimson);
+    border-radius: 40px;
+  }
+
+  .search-hero {
+    background: linear-gradient(135deg, #3A241C 0%, #2C1810 100%);
+    padding: 50px 20px;
+    border-radius: 0 0 40px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .search-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="rgba(198,164,59,0.05)" d="M10,50 L30,30 L50,50 L30,70 Z M60,40 L80,20 L95,35 L75,55 Z"/></svg>');
+    opacity: 0.3;
+  }
+  .search-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+  .search-input-group {
+    background: var(--cream);
+    border-radius: 60px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    border: 2px solid var(--gold);
+  }
+  .search-input-group input {
+    border: none;
+    padding: 16px 25px;
+    font-size: 1rem;
+    outline: none;
+    background: var(--cream);
+    color: var(--ink);
+  }
+  .search-input-group input::placeholder {
+    color: var(--ink3);
+  }
+  .search-input-group button {
+    background: linear-gradient(135deg, var(--crimson) 0%, var(--maroon) 100%);
+    border: none;
+    color: var(--cream);
+    padding: 0 32px;
+    font-weight: 600;
+    transition: 0.2s;
+  }
+  .search-input-group button:hover {
+    background: linear-gradient(135deg, var(--crimson-dark) 0%, #5A2520 100%);
+  }
+
+  .pcard {
+    background: var(--surface);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    margin-bottom: 24px;
+    border: 1px solid var(--border);
+    position: relative;
+  }
+  .pcard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 0;
+    background: var(--gold);
+    transition: height 0.3s ease;
+  }
+  .pcard:hover::before {
+    height: 100%;
+  }
+  .pcard:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--gold); }
+  .pcard-img { aspect-ratio: 4/3; overflow: hidden; background: #F5EDE0; }
+  .pcard-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+  .pcard:hover .pcard-img img { transform: scale(1.05); }
+  .pcard-body { padding: 18px; }
+  .pcard-cat { 
+    font-size: 0.7rem; 
+    font-weight: 700; 
+    text-transform: uppercase; 
+    color: var(--gold);
+    letter-spacing: 1px;
+  }
+  .pcard-name { 
+    font-weight: 700; 
+    font-size: 1rem; 
+    margin: 8px 0 6px;
+    font-family: var(--fd);
+    color: var(--maroon);
+  }
+  .pcard-price { font-weight: 800; font-size: 1.15rem; margin-top: 8px; color: var(--crimson); }
+  .pcard-price s { font-size: 0.8rem; color: var(--ink3); margin-left: 8px; font-weight: normal; }
+  .pcard-btn {
+    margin: 0 16px 16px;
+    background: linear-gradient(135deg, var(--crimson) 0%, var(--maroon) 100%);
+    color: var(--cream);
+    border-radius: 40px;
+    padding: 10px;
+    text-align: center;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .pcard-btn:hover { background: linear-gradient(135deg, var(--crimson-dark) 0%, #5A2520 100%); transform: scale(0.98); }
+
+  .summary-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 90px;
+    border: 1px solid var(--border);
+  }
+  .cart-item-card {
+    background: var(--surface);
+    border-radius: 20px;
+    padding: 16px;
+    margin-bottom: 16px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+  .qr-payment-box {
+    text-align: center;
+    background: linear-gradient(135deg, var(--cream) 0%, #FEF7E6 100%);
+    border-radius: 20px;
+    padding: 28px;
+    margin-top: 20px;
+    border: 2px solid var(--gold);
+  }
+  .custom-qr {
+    background: white;
+    padding: 15px;
+    border-radius: 20px;
+    display: inline-block;
+    margin: 16px 0;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--gold);
+  }
+  .custom-qr img { width: 220px; height: 220px; display: block; object-fit: contain; }
+  .upi-badge {
+    background: linear-gradient(135deg, var(--crimson) 0%, var(--maroon) 100%);
+    color: var(--cream);
+    padding: 10px 24px;
+    border-radius: 40px;
+    display: inline-block;
+    font-family: monospace;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 12px 0;
+  }
+  .timer-badge {
+    background: linear-gradient(135deg, #FFF1E0 0%, #FFE8D4 100%);
+    border-left: 5px solid var(--gold);
+    padding: 14px;
+    border-radius: 16px;
+    font-weight: 600;
+    margin: 16px 0;
+    color: var(--maroon);
+  }
+  .toast-container-custom { position: fixed; bottom: 20px; right: 20px; z-index: 9999; }
+  footer { 
+    background: linear-gradient(135deg, #2C1810 0%, #1F120C 100%);
+    color: rgba(255,245,235,0.7); 
+    padding: 48px 24px 24px; 
+    margin-top: 60px; 
+    text-align: center;
+    border-top: 2px solid var(--gold);
+  }
+  footer a { color: var(--gold); text-decoration: none; }
+
+  @media (max-width: 768px) {
+    .custom-nav { padding: 0.5rem 1rem; }
+    .summary-card { position: relative; top: 0; margin-top: 24px; }
+    .robot-icon-btn { width: 40px; height: 40px; }
+    .robot-icon-btn i { font-size: 1.4rem; }
+    .search-input-group input { padding: 12px 18px; }
+    .search-input-group button { padding: 0 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toast-container-custom" id="toastWrap"></div>
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4" style="background: var(--cream); border: 2px solid var(--gold);">
+      <div class="modal-body text-center p-4">
+        <i class="fas fa-check-circle" style="color: var(--crimson); font-size: 3.5rem; margin-bottom: 1rem;"></i>
+        <h3 class="fw-bold" style="color: var(--maroon); font-family: var(--fd);">Order Confirmed! 🎉</h3>
+        <p style="color: var(--ink2);">Your payment has been verified successfully.</p>
+        <p class="bg-white p-2 rounded-pill" id="modalOrderId" style="border: 1px solid var(--gold); color: var(--crimson);"></p>
+        <div class="d-flex gap-2 justify-content-center mt-3">
+          <button class="btn btn-primary-custom" onclick="closeModalAndGoOrders()">View My Orders</button>
+          <button class="btn btn-outline-custom" onclick="closeModalAndShop()">Continue Shopping</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Payment Failed Modal -->
+<div class="modal fade" id="failedModal" tabindex="-1" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4" style="background: var(--cream); border: 2px solid var(--crimson);">
+      <div class="modal-body text-center p-4">
+        <i class="fas fa-times-circle" style="color: var(--crimson); font-size: 3.5rem; margin-bottom: 1rem;"></i>
+        <h3 class="fw-bold" style="color: var(--maroon);">Payment Failed ⏰</h3>
+        <p>Payment window expired (1 minute). No payment was completed.</p>
+        <p class="text-muted">Please try again from your cart.</p>
+        <button class="btn btn-primary-custom mt-3" onclick="closeFailedAndGoCart()">Return to Cart</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Pages -->
+<div id="p-home" class="page active">
+  <nav class="navbar navbar-expand-lg custom-nav sticky-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" onclick="goPage('home')" style="cursor:pointer;">Bazar<em>.</em>in</a>
+      <div class="d-flex align-items-center gap-2 ms-auto" id="nav-actions-home"></div>
+      <div class="cart-icon ms-2" onclick="goPage('cart')">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count" id="home-cart-badge"></span>
+      </div>
+      <a href="styleadviser.html" target="_blank" class="robot-icon-btn" title="AI Shopping Assistant">
+        <i class="fas fa-robot"></i>
+      </a>
+    </div>
+  </nav>
+  
+  <!-- Hero with Search Bar -->
+  <div class="search-hero">
+    <div class="container">
+      <h1 class="text-center mb-3" style="font-family: var(--fd); color: var(--gold); font-weight: 800; font-size: 3rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Bazar.in</h1>
+      <p class="text-center mb-4" style="color: var(--cream); font-size: 1.1rem;">Discover timeless elegance & modern essentials</p>
+      <div class="search-wrapper">
+        <div class="search-input-group input-group">
+          <input type="text" id="homeSearchInput" class="form-control" placeholder="🔍 Search for products... (jacket, headphones, shoes)">
+          <button class="btn" onclick="searchHomeProducts()"><i class="fas fa-search"></i> Search</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 style="font-family: var(--fd); color: var(--maroon); font-weight: 700;" id="homeSectionTitle">Our Collection</h2>
+      <button class="btn btn-outline-custom rounded-pill px-4" onclick="resetHomeSearch()">Show All</button>
+    </div>
+    <div class="row" id="home-grid"></div>
+  </div>
+  <footer>© 2025 Bazar.in — Free Shipping above ₹999 | Secure UPI QR Payments | Elegance Redefined</footer>
+</div>
+
+<div id="p-products" class="page">
+  <nav class="navbar navbar-expand-lg custom-nav">
+    <div class="container-fluid">
+      <a class="navbar-brand" onclick="goPage('home')" style="cursor:pointer;">Bazar<em>.</em>in</a>
+      <div class="d-flex align-items-center gap-2 ms-auto" id="nav-actions-products"></div>
+      <div class="cart-icon ms-2" onclick="goPage('cart')"><i class="fas fa-shopping-cart"></i><span class="cart-count" id="prods-cart-badge"></span></div>
+      <a href="https://www.bing.com/search?q=AI+shopping+assistant" target="_blank" class="robot-icon-btn ms-2"><i class="fas fa-robot"></i></a>
+    </div>
+  </nav>
+  <div class="container py-5">
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="search-wrapper" style="max-width: 500px;">
+          <div class="search-input-group input-group">
+            <input type="text" id="productSearchInput" class="form-control" placeholder="🔍 Search products...">
+            <button class="btn" onclick="searchProductsPage()"><i class="fas fa-search"></i> Search</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h2 style="color: var(--maroon); font-family: var(--fd);">All Products</h2>
+    <div class="row" id="products-grid"></div>
+  </div>
+</div>
+
+<div id="p-cart" class="page">
+  <nav class="navbar navbar-expand-lg custom-nav">
+    <div class="container-fluid">
+      <a class="navbar-brand" onclick="goPage('home')">Bazar<em>.</em>in</a>
+      <div class="d-flex align-items-center gap-2 ms-auto" id="nav-actions-cart"></div>
+      <div class="cart-icon ms-2" onclick="goPage('cart')"><i class="fas fa-shopping-cart"></i><span class="cart-count" id="cart-badge"></span></div>
+      <a href="https://www.bing.com/search?q=AI+shopping+assistant" target="_blank" class="robot-icon-btn ms-2"><i class="fas fa-robot"></i></a>
+    </div>
+  </nav>
+  <div class="container py-5"><h1 style="color: var(--maroon); font-family: var(--fd);">Shopping Cart</h1><div id="cart-mount"></div></div>
+</div>
+
+<div id="p-checkout" class="page">
+  <nav class="navbar navbar-expand-lg custom-nav">
+    <div class="container-fluid">
+      <a class="navbar-brand" onclick="goPage('home')">Bazar<em>.</em>in</a>
+      <div class="d-flex align-items-center gap-2 ms-auto" id="nav-actions-checkout"></div>
+      <div class="cart-icon ms-2" onclick="goPage('cart')"><i class="fas fa-shopping-cart"></i><span class="cart-count" id="checkout-cart-badge"></span></div>
+      <a href="styleadviser.html" target="_blank" class="robot-icon-btn ms-2"><i class="fas fa-robot"></i></a>
+    </div>
+  </nav>
+  <div class="container py-5"><h1 style="color: var(--maroon); font-family: var(--fd);">Secure Checkout</h1><div id="checkout-mount"></div></div>
+</div>
+
+<div id="p-orders" class="page">
+  <nav class="navbar navbar-expand-lg custom-nav">
+    <div class="container-fluid">
+      <a class="navbar-brand" onclick="goPage('home')">Bazar<em>.</em>in</a>
+      <div class="d-flex align-items-center gap-2 ms-auto" id="nav-actions-orders"></div>
+      <div class="cart-icon ms-2" onclick="goPage('cart')"><i class="fas fa-shopping-cart"></i><span class="cart-count" id="orders-cart-badge"></span></div>
+      <a href="https://www.bing.com/search?q=AI+shopping+assistant" target="_blank" class="robot-icon-btn ms-2"><i class="fas fa-robot"></i></a>
+    </div>
+  </nav>
+  <div class="container py-5"><h1 style="color: var(--maroon); font-family: var(--fd);">My Orders</h1><div id="orders-mount"></div></div>
+</div>
+
+<div id="p-login" class="page">
+  <div class="container d-flex align-items-center justify-content-center min-vh-100 py-5">
+    <div class="card shadow-lg border-0 rounded-4 p-4" style="max-width: 460px; width:100%; background: var(--cream); border: 2px solid var(--gold);">
+      <h2 class="fw-bold" style="color: var(--maroon); font-family: var(--fd);">Welcome Back</h2>
+      <p class="text-secondary" style="color: var(--ink2) !important;">Sign in to your account</p>
+      <input type="email" id="login-email" class="form-control mb-3 py-2" placeholder="Email address" style="border: 1px solid var(--border);">
+      <input type="password" id="login-password" class="form-control mb-3 py-2" placeholder="Password" style="border: 1px solid var(--border);">
+      <button class="btn btn-primary-custom w-100 py-2" onclick="handleLogin()">Sign In →</button>
+      <div class="text-center mt-3">Don't have an account? <a onclick="goPage('register')" style="cursor:pointer; color: var(--crimson); font-weight: 600;">Create one</a></div>
+    </div>
+  </div>
+</div>
+
+<div id="p-register" class="page">
+  <div class="container d-flex align-items-center justify-content-center min-vh-100 py-5">
+    <div class="card shadow-lg border-0 rounded-4 p-4" style="max-width: 460px; width:100%; background: var(--cream); border: 2px solid var(--gold);">
+      <h2 class="fw-bold" style="color: var(--maroon); font-family: var(--fd);">Create Account</h2>
+      <p class="text-secondary" style="color: var(--ink2) !important;">Join Bazar.in for exclusive deals</p>
+      <input type="text" id="reg-name" class="form-control mb-3 py-2" placeholder="Full Name">
+      <input type="email" id="reg-email" class="form-control mb-3 py-2" placeholder="Email address">
+      <input type="password" id="reg-password" class="form-control mb-3 py-2" placeholder="Password (min. 6 characters)">
+      <input type="password" id="reg-confirm" class="form-control mb-3 py-2" placeholder="Confirm Password">
+      <button class="btn btn-primary-custom w-100 py-2" onclick="handleRegister()">Create Account →</button>
+      <div class="text-center mt-3">Already have an account? <a onclick="goPage('login')" style="cursor:pointer; color: var(--crimson); font-weight: 600;">Sign in</a></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// ========== 15 PRODUCTS WITH REAL IMAGES ==========
+const PRODUCTS = [
+  // --- MEN (18 Products) ---
+  { id: 1, name: "Crimson Velvet Jacket", cat: "men", price: 2199, mrp: 3999, img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&h=375&fit=crop" },
+  { id: 2, name: "Maroon Leather Boots", cat: "men", price: 3599, mrp: 5999, img: "2.webp" },
+  { id: 3, name: "Cream Oxford Shirt", cat: "men", price: 1199, mrp: 1999, img: "https://images.unsplash.com/photo-1598032895397-b9472444bf93?w=500&h=375&fit=crop" },
+  { id: 4, name: "Gold Accent Sneakers", cat: "men", price: 2899, mrp: 4499, img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&h=375&fit=crop" },
+  { id: 5, name: "Navy Slim Fit Chinos", cat: "men", price: 1599, mrp: 2799, img: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=500&h=375&fit=crop" },
+  { id: 6, name: "Graphic Tee - Noir", cat: "men", price: 899, mrp: 1499, img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=375&fit=crop" },
+  { id: 7, name: "Wool-Blend Overcoat", cat: "men", price: 4999, mrp: 8999, img: "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=500&h=375&fit=crop" },
+  { id: 8, name: "Minimalist Backpack", cat: "men", price: 1999, mrp: 3499, img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&h=375&fit=crop" },
+  { id: 9, name: "Aviator Sunglasses", cat: "men", price: 1299, mrp: 2499, img: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=500&h=375&fit=crop" },
+  { id: 10, name: "Burgundy High-Tops", cat: "men", price: 3299, mrp: 5499, img: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=500&h=375&fit=crop" },
+  { id: 11, name: "Denim Trucker Jacket", cat: "men", price: 2799, mrp: 4499, img: "4.jpg" },
+  { id: 12, name: "Cotton Henley Shirt", cat: "men", price: 999, mrp: 1799, img: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=500&h=375&fit=crop" },
+  { id: 13, name: "Cargo Joggers", cat: "men", price: 1399, mrp: 2499, img: "5.webp" },
+  { id: 14, name: "Leather Biker Jacket", cat: "men", price: 5999, mrp: 9999, img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&h=375&fit=crop" },
+  { id: 15, name: "Plaid Flannel Shirt", cat: "men", price: 1199, mrp: 2199, img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500&h=375&fit=crop" },
+  { id: 16, name: "Running Shorts", cat: "men", price: 799, mrp: 1499, img: "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=500&h=375&fit=crop" },
+  { id: 17, name: "Wool Fedora Hat", cat: "men", price: 1499, mrp: 2799, img: "6.jpg" },
+  { id: 18, name: "Suede Loafers", cat: "men", price: 2499, mrp: 3999, img: "https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=500&h=375&fit=crop" },
+
+  // --- WOMEN (18 Products) ---
+  { id: 19, name: "Burgundy Maxi Dress", cat: "women", price: 2499, mrp: 3999, img: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=500&h=375&fit=crop" },
+  { id: 20, name: "Wine Skinny Jeans", cat: "women", price: 1899, mrp: 3299, img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500&h=375&fit=crop" },
+  { id: 21, name: "Gold Chain Handbag", cat: "women", price: 2799, mrp: 4999, img: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=500&h=375&fit=crop" },
+  { id: 22, name: "Silk Blouse - Champagne", cat: "women", price: 1699, mrp: 2999, img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&h=375&fit=crop" },
+  { id: 23, name: "High-Waist Trousers", cat: "women", price: 2099, mrp: 3599, img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=500&h=375&fit=crop" },
+  { id: 24, name: "Leather Ankle Boots", cat: "women", price: 3899, mrp: 6499, img: "6.jpg" },
+  { id: 25, name: "Oversized Denim Jacket", cat: "women", price: 2299, mrp: 3999, img: "7.jpg" },
+  { id: 26, name: "Pearl Drop Earrings", cat: "women", price: 799, mrp: 1599, img: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500&h=375&fit=crop" },
+  { id: 27, name: "Floral Summer Dress", cat: "women", price: 1899, mrp: 3299, img: "https://images.unsplash.com/photo-1495385794356-15371f348c31?w=500&h=375&fit=crop" },
+  { id: 28, name: "Cashmere Scarf", cat: "women", price: 999, mrp: 1999, img: "https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=500&h=375&fit=crop" },
+  { id: 29, name: "Pleated Midi Skirt", cat: "women", price: 1599, mrp: 2799, img: "8.jpg" },
+  { id: 30, name: "Cropped Cardigan", cat: "women", price: 1299, mrp: 2299, img: "9.jpg" },
+  { id: 31, name: "Sports Bra", cat: "women", price: 899, mrp: 1599, img: "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=500&h=375&fit=crop" },
+  { id: 32, name: "Wide Brim Hat", cat: "women", price: 1199, mrp: 1999, img: "10.jpg" },
+  { id: 33, name: "Statement Necklace", cat: "women", price: 899, mrp: 1699, img: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500&h=375&fit=crop" },
+  { id: 34, name: "Leggings - High Rise", cat: "women", price: 1099, mrp: 1999, img: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=500&h=375&fit=crop" },
+  { id: 35, name: "Trench Coat", cat: "women", price: 4499, mrp: 7999, img: "https://images.unsplash.com/photo-1544441892-794166f1e3be?w=500&h=375&fit=crop" },
+  { id: 36, name: "Ballet Flats", cat: "women", price: 1499, mrp: 2599, img: "https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=500&h=375&fit=crop" },
+
+  // --- ACCESSORIES (12 Products) ---
+  { id: 37, name: "Elegant Chrono Watch", cat: "accessories", price: 1799, mrp: 2999, img: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=500&h=375&fit=crop" },
+  { id: 38, name: "Gradient Aviators", cat: "accessories", price: 1499, mrp: 2799, img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&h=375&fit=crop" },
+  { id: 39, name: "Leather Belt - Tan", cat: "accessories", price: 899, mrp: 1699, img: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&h=375&fit=crop" },
+  { id: 40, name: "Silk Pocket Square", cat: "accessories", price: 499, mrp: 999, img: "11.jpg" },
+  { id: 41, name: "Minimalist Wallet", cat: "accessories", price: 699, mrp: 1299, img: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=500&h=375&fit=crop" },
+  { id: 42, name: "Leather Backpack", cat: "accessories", price: 3299, mrp: 5499, img: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=500&h=375&fit=crop" },
+  { id: 43, name: "Silver Cufflinks", cat: "accessories", price: 1199, mrp: 1999, img: "https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=500&h=375&fit=crop" },
+  { id: 44, name: "Silk Tie - Burgundy", cat: "accessories", price: 799, mrp: 1499, img: "https://images.unsplash.com/photo-1589756823695-278bc923f962?w=500&h=375&fit=crop" },
+  { id: 45, name: "Beanie Cap", cat: "accessories", price: 399, mrp: 799, img: "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=500&h=375&fit=crop" },
+  { id: 46, name: "Leather Gloves", cat: "accessories", price: 999, mrp: 1799, img: "https://images.unsplash.com/photo-1559056199-5a47f60c5053?w=500&h=375&fit=crop" },
+  { id: 47, name: "Fashion Ring Set", cat: "accessories", price: 599, mrp: 1199, img: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500&h=375&fit=crop" },
+  { id: 48, name: "Canvas Tote Bag", cat: "accessories", price: 799, mrp: 1499, img: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=500&h=375&fit=crop" },
+
+  // --- ELECTRONICS (12 Products) ---
+  { id: 49, name: "Crimson Headphones", cat: "electronics", price: 4499, mrp: 8999, img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=375&fit=crop" },
+  { id: 50, name: "Maroon Earbuds", cat: "electronics", price: 2799, mrp: 4999, img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&h=375&fit=crop" },
+  { id: 51, name: "Gold Mechanical Keyboard", cat: "electronics", price: 4599, mrp: 6999, img: "12.jpg" },
+  { id: 52, name: "Mahogany Speaker", cat: "electronics", price: 2299, mrp: 3999, img: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500&h=375&fit=crop" },
+  { id: 53, name: "Crimson Gaming Mouse", cat: "electronics", price: 1999, mrp: 3499, img: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500&h=375&fit=crop" },
+  { id: 54, name: "Rose Gold Smart Watch", cat: "electronics", price: 7999, mrp: 12999, img: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=500&h=375&fit=crop" },
+  { id: 55, name: "Ultra-wide Monitor", cat: "electronics", price: 18999, mrp: 27999, img: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=500&h=375&fit=crop" },
+  { id: 56, name: "Wireless Charger Pad", cat: "electronics", price: 1299, mrp: 2499, img: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=500&h=375&fit=crop" },
+  { id: 57, name: "Noise Cancelling Headphones", cat: "electronics", price: 6499, mrp: 11999, img: "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=500&h=375&fit=crop" },
+  { id: 58, name: "Streaming Webcam", cat: "electronics", price: 3999, mrp: 6999, img: "https://images.unsplash.com/photo-1595079676339-1534801ad6cf?w=500&h=375&fit=crop" },
+  { id: 59, name: "Gaming Chair", cat: "electronics", price: 12999, mrp: 19999, img: "https://images.unsplash.com/photo-1598550476439-6847785fcea6?w=500&h=375&fit=crop" },
+  { id: 60, name: "Portable SSD 1TB", cat: "electronics", price: 6999, mrp: 11999, img: "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=500&h=375&fit=crop" },
+
+  // --- HOME & LIFESTYLE (10 Products) ---
+  { id: 61, name: "Ceramic Table Lamp", cat: "home", price: 1899, mrp: 3299, img: "13.jpg" },
+  { id: 62, name: "Scented Candle Set", cat: "home", price: 1199, mrp: 1999, img: "14.jpg" },
+  { id: 63, name: "Boho Throw Blanket", cat: "home", price: 1599, mrp: 2799, img: "https://images.unsplash.com/photo-1583845112203-29329902332e?w=500&h=375&fit=crop" },
+  { id: 64, name: "Marble Coffee Table", cat: "home", price: 7999, mrp: 12999, img: "https://images.unsplash.com/photo-1532372320572-cda25653a26d?w=500&h=375&fit=crop" },
+  { id: 65, name: "Abstract Wall Art", cat: "home", price: 2499, mrp: 4499, img: "14.jpg" },
+  { id: 66, name: "Memory Foam Pillow", cat: "home", price: 1299, mrp: 2499, img: "15.webp" },
+  { id: 67, name: "Bamboo Cutting Board", cat: "home", price: 899, mrp: 1599, img: "17.jpg" },
+  { id: 68, name: "Indoor Plant - Fiddle Leaf", cat: "home", price: 1499, mrp: 2599, img: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=500&h=375&fit=crop" },
+  { id: 69, name: "Bath Towel Set", cat: "home", price: 999, mrp: 1799, img: "https://images.unsplash.com/photo-1583845112203-29329902332e?w=500&h=375&fit=crop" },
+  { id: 70, name: "Kitchen Knife Set", cat: "home", price: 3499, mrp: 5999, img: "https://images.unsplash.com/photo-1593618998160-e34014e67546?w=500&h=375&fit=crop" }
+];// USER MANAGEMENT (same as before, kept concise)
+let currentUser = null;
+function loadUsers() { return JSON.parse(localStorage.getItem('bazar_users') || '[]'); }
+function saveUsers(users) { localStorage.setItem('bazar_users', JSON.stringify(users)); }
+function loadCurrentUser() { let saved = localStorage.getItem('bazar_current_user'); if(saved) { currentUser = JSON.parse(saved); return currentUser; } return null; }
+function saveCurrentUser(user) { currentUser = user; localStorage.setItem('bazar_current_user', JSON.stringify(user)); }
+function logout() { localStorage.removeItem('bazar_current_user'); currentUser = null; updateNavbarAll(); toast('Logged out'); goPage('home'); }
+function handleRegister() {
+  let name = document.getElementById('reg-name')?.value.trim(), email = document.getElementById('reg-email')?.value.trim(), password = document.getElementById('reg-password')?.value, confirm = document.getElementById('reg-confirm')?.value;
+  if(!name || !email) return toast('All fields required');
+  if(!password || password.length<6) return toast('Password min 6 chars');
+  if(password !== confirm) return toast('Passwords mismatch');
+  let users = loadUsers();
+  if(users.find(u=>u.email===email)) return toast('Email exists');
+  let newUser = { id: Date.now(), name, email, password };
+  users.push(newUser); saveUsers(users);
+  saveCurrentUser({ id: newUser.id, name: newUser.name, email: newUser.email });
+  toast('Account created!'); goPage('home');
+}
+function handleLogin() {
+  let email = document.getElementById('login-email')?.value.trim(), password = document.getElementById('login-password')?.value;
+  if(!email || !password) return toast('Enter credentials');
+  let users = loadUsers(), user = users.find(u=>u.email===email && u.password===password);
+  if(!user) return toast('Invalid login');
+  saveCurrentUser({ id: user.id, name: user.name, email: user.email });
+  toast(`Welcome ${user.name}!`); goPage('home');
+}
+function updateNavbarAll() { ['nav-actions-home','nav-actions-products','nav-actions-cart','nav-actions-checkout','nav-actions-orders'].forEach(id=>updateNavbar(id)); }
+function updateNavbar(containerId) {
+  let container = document.getElementById(containerId);
+  if(!container) return;
+  if(currentUser) {
+    let initial = currentUser.name.charAt(0).toUpperCase();
+    container.innerHTML = `<div class="user-greeting"><div class="user-avatar">${initial}</div><span>${currentUser.name}</span></div>
+      <a class="nav-link-custom nav-link px-2" onclick="goPage('orders')">Orders</a>
+      <a class="nav-link-custom nav-link px-2" onclick="logout()">Logout</a>`;
+  } else {
+    container.innerHTML = `<a class="nav-link-custom nav-link px-2" onclick="goPage('login')">Login</a>
+      <a class="nav-link-custom nav-link px-2" onclick="goPage('register')">Sign Up</a>`;
+  }
+}
+const getCart = () => JSON.parse(localStorage.getItem('bazar_cart') || '[]');
+const saveCart = (c) => { localStorage.setItem('bazar_cart', JSON.stringify(c)); updateAllBadges(); };
+const addToCart = (p) => { let c = getCart(), idx = c.findIndex(i=>i.id===p.id); if(idx>-1) c[idx].qty += 1; else c.push({id:p.id, name:p.name, price:p.price, img:p.img, qty:1}); saveCart(c); toast(`${p.name} added`); };
+const cartCount = () => getCart().reduce((s,i)=>s+(i.qty||0),0);
+const updateAllBadges = () => { let cnt = cartCount(); document.querySelectorAll('.cart-count').forEach(el => { el.innerText = cnt; el.style.display = cnt ? 'flex' : 'none'; }); };
+const toast = (msg) => { let w=document.getElementById('toastWrap'), d=document.createElement('div'); d.className='alert alert-dark shadow-sm rounded-pill px-4 py-2 mb-2'; d.innerText=msg; w.appendChild(d); setTimeout(()=>d.remove(),2500); };
+const fmt = (n) => '₹' + n.toLocaleString('en-IN');
+function getCartTotals() { let cart = getCart(), subtotal = cart.reduce((s,i)=>s + i.price*(i.qty||1),0), shipping = subtotal>=999?0:99, total=subtotal+shipping; return { subtotal, shipping, total, itemCount: cart.reduce((s,i)=>s+(i.qty||1),0) }; }
+function pcardHTML(p) { let disc = Math.round((p.mrp-p.price)/p.mrp*100); return `<div class="col-md-4 col-sm-6 mb-4"><div class="pcard h-100" onclick="addToCart(PRODUCTS.find(x=>x.id===${p.id}));"><div class="pcard-img"><img src="${p.img}" class="w-100" alt="${p.name}"></div><div class="pcard-body"><div class="pcard-cat">${p.cat} · ${disc}% off</div><div class="pcard-name">${p.name}</div><div class="pcard-price">${fmt(p.price)} <s>${fmt(p.mrp)}</s></div></div><div class="pcard-btn" onclick="event.stopPropagation();addToCart(PRODUCTS.find(x=>x.id===${p.id}));">Add to Cart</div></div></div>`; }
+
+let currentHomeFilter = '';
+function renderHomeProducts(filterTerm='') {
+  let filtered = PRODUCTS.filter(p => p.name.toLowerCase().includes(filterTerm.toLowerCase()) || p.cat.toLowerCase().includes(filterTerm.toLowerCase()));
+  document.getElementById('home-grid').innerHTML = filtered.length ? filtered.map(pcardHTML).join('') : `<div class="col-12 text-center py-5"><h4>No products found for "${filterTerm}"</h4><button class="btn btn-primary-custom mt-3" onclick="resetHomeSearch()">View All Products</button></div>`;
+  document.getElementById('homeSectionTitle').innerHTML = filterTerm ? `Search: "${filterTerm}"` : "Our Collection";
+}
+function searchHomeProducts() { let term = document.getElementById('homeSearchInput')?.value.trim() || ''; currentHomeFilter = term; renderHomeProducts(term); }
+function resetHomeSearch() { document.getElementById('homeSearchInput').value = ''; currentHomeFilter = ''; renderHomeProducts(''); }
+function renderProductsPage(filterTerm='') { let filtered = PRODUCTS.filter(p => p.name.toLowerCase().includes(filterTerm.toLowerCase()) || p.cat.toLowerCase().includes(filterTerm.toLowerCase())); document.getElementById('products-grid').innerHTML = filtered.length ? filtered.map(pcardHTML).join('') : `<div class="col-12 text-center py-5"><h4>No products found</h4></div>`; }
+function searchProductsPage() { let term = document.getElementById('productSearchInput')?.value || ''; renderProductsPage(term); }
+function renderCart() { let cart = getCart(), mount = document.getElementById('cart-mount'); if(!cart.length) { mount.innerHTML = `<div class="text-center py-5"><h3>Cart empty</h3><button class="btn btn-primary-custom" onclick="goPage('products')">Shop Now</button></div>`; return; } let { subtotal, shipping, total, itemCount } = getCartTotals(); mount.innerHTML = `<div class="row"><div class="col-lg-8">${cart.map(item=>{ let qty=item.qty||1; return `<div class="cart-item-card"><img src="${item.img}" style="width:80px;height:80px;object-fit:cover;border-radius:12px;"><div class="flex-grow-1"><strong>${item.name}</strong><div>${fmt(item.price)}</div><div class="mt-2"><button class="btn btn-sm btn-outline-secondary" onclick="updateQty(${item.id},-1)">−</button><span class="mx-2">${qty}</span><button class="btn btn-sm btn-outline-secondary" onclick="updateQty(${item.id},1)">+</button><button class="btn btn-sm btn-danger ms-2" onclick="removeItem(${item.id})">Remove</button></div></div><div class="fw-bold">${fmt(item.price*qty)}</div></div>`; }).join('')}</div><div class="col-lg-4"><div class="summary-card"><h4>Summary</h4><div class="d-flex justify-content-between"><span>Subtotal (${itemCount})</span><span>${fmt(subtotal)}</span></div><div class="d-flex justify-content-between">Shipping: ${shipping===0?'FREE':fmt(shipping)}</div><hr><div class="fw-bold d-flex justify-content-between fs-5">Total ${fmt(total)}</div><button class="btn btn-primary-custom w-100 mt-3" onclick="goPage('checkout')">Proceed to Checkout →</button></div></div></div>`; }
+function updateQty(id,delta) { let c=getCart(), idx=c.findIndex(i=>i.id===id); if(idx===-1)return; let nq=(c[idx].qty||1)+delta; if(nq<1)c.splice(idx,1); else c[idx].qty=nq; saveCart(c); renderCart(); }
+function removeItem(id) { saveCart(getCart().filter(i=>i.id!==id)); renderCart(); }
+
+// QR CODE PAYMENT
+const CUSTOM_QR_API = "https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=";
+const MERCHANT_UPI = "bazarstore@okhdfcbank";
+let paymentTimerInterval = null, paymentExpiredFlag = false, timerRemaining = 60, _tempAddress = null;
+function renderCheckout() { let cart = getCart(); if(!cart.length) { goPage('cart'); return; } let { total } = getCartTotals(); document.getElementById('checkout-mount').innerHTML = `<div class="row"><div class="col-lg-7"><div class="card border-0 shadow-sm rounded-4 p-4 mb-4" style="background: var(--cream);"><h4 style="color: var(--maroon);"><i class="fas fa-map-marker-alt me-2"></i> Delivery Details</h4><div class="row mt-3"><div class="col-12 mb-3"><input id="fullName" class="form-control" placeholder="Full Name *" style="border:1px solid var(--border);"></div><div class="col-12 mb-3"><textarea id="address" rows="2" class="form-control" placeholder="Complete Address *" style="border:1px solid var(--border);"></textarea></div><div class="col-md-4 mb-3"><input id="city" class="form-control" placeholder="City *"></div><div class="col-md-4 mb-3"><input id="state" class="form-control" placeholder="State *"></div><div class="col-md-4 mb-3"><input id="pincode" class="form-control" placeholder="PIN Code *" maxlength="6"></div><div class="col-12 mb-3"><input id="phone" class="form-control" placeholder="Phone Number *" maxlength="10"></div><div class="col-12 mb-3"><input id="email" class="form-control" placeholder="Email Address *" type="email" value="${currentUser?.email || ''}"></div></div><button class="btn btn-primary-custom w-100 mt-2" id="proceedToQrBtn" onclick="proceedToPaymentWithAddress()"><i class="fas fa-qrcode me-2"></i> Proceed with Payment → Show QR Code</button></div><div id="qrPaymentSection" style="display: none;"></div></div><div class="col-lg-5"><div class="summary-card"><h4>Order Summary</h4>${cart.map(i=>`<div class="d-flex justify-content-between"><span>${i.name} x${i.qty||1}</span><span>${fmt(i.price*(i.qty||1))}</span></div>`).join('')}<hr><div class="d-flex justify-content-between fw-bold fs-5"><span>Total</span><span style="color:var(--crimson);">${fmt(total)}</span></div></div></div></div>`; }
+function proceedToPaymentWithAddress() { let fullName=document.getElementById('fullName')?.value.trim(), address=document.getElementById('address')?.value.trim(), city=document.getElementById('city')?.value.trim(), state=document.getElementById('state')?.value.trim(), pincode=document.getElementById('pincode')?.value.trim(), phone=document.getElementById('phone')?.value.trim(), email=document.getElementById('email')?.value.trim(); if(!fullName||!address||!city||!state||!pincode||!phone||!email) return toast("All fields required"); if(!/^\d{6}$/.test(pincode)) return toast("Invalid PIN"); if(!/^\d{10}$/.test(phone)) return toast("Invalid phone"); if(!email.includes('@')) return toast("Valid email required"); _tempAddress = { fullName, address, city, state, pincode, phone, email }; let { total } = getCartTotals(); let upiLink = `upi://pay?pa=${MERCHANT_UPI}&pn=Bazar.in&am=${total}&cu=INR`, qrImageUrl = CUSTOM_QR_API + encodeURIComponent(upiLink); document.getElementById('qrPaymentSection').innerHTML = `<div class="card border-0 shadow-sm rounded-4 p-4 mt-3" style="background: var(--cream); border:2px solid var(--gold);"><h4 style="color:var(--maroon);"><i class="fas fa-qrcode me-2"></i> Scan & Pay (1 minute window)</h4><div class="qr-payment-box"><div class="custom-qr"><img id="dynamicQrImg" src="${qrImageUrl}" style="width:220px;height:220px;"></div><div class="upi-badge">${MERCHANT_UPI}</div><div class="amount-badge fs-3 fw-bold" style="color:var(--crimson);">${fmt(total)}</div><div class="timer-badge">⏳ Complete payment within: <span id="countdownTimer" class="fw-bold fs-4">01:00</span></div><button class="btn btn-primary-custom w-100 py-2 fw-bold" id="confirmPaymentBtn" onclick="confirmPaymentAfterQR()"><i class="fas fa-check-circle"></i> I have made the payment → Confirm Order</button></div></div>`; document.getElementById('qrPaymentSection').style.display = 'block'; document.getElementById('proceedToQrBtn').disabled = true; startPaymentTimer(); }
+function startPaymentTimer() { if(paymentTimerInterval) clearInterval(paymentTimerInterval); timerRemaining = 60; paymentExpiredFlag = false; let timerElement = document.getElementById('countdownTimer'); if(!timerElement) return; let updateTimer = () => { let mins = Math.floor(timerRemaining/60), secs = timerRemaining%60; timerElement.innerText = `${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`; if(timerRemaining <= 0) { clearInterval(paymentTimerInterval); paymentExpiredFlag = true; if(document.getElementById('confirmPaymentBtn')) document.getElementById('confirmPaymentBtn').disabled = true; new bootstrap.Modal(document.getElementById('failedModal')).show(); } timerRemaining--; }; updateTimer(); paymentTimerInterval = setInterval(() => { if(timerRemaining >= 0) updateTimer(); else clearInterval(paymentTimerInterval); }, 1000); }
+function confirmPaymentAfterQR() { if(paymentExpiredFlag || timerRemaining < 0) return toast("Payment expired"); if(!_tempAddress) return toast("Address missing"); let cart = getCart(); if(!cart.length) return toast("Cart empty"); let { subtotal, shipping, total } = getCartTotals(); let orders = JSON.parse(localStorage.getItem('bazar_orders') || '[]'); orders.unshift({ id: Date.now(), orderNumber: 'BZR' + Date.now().toString().slice(-8), userId: currentUser?.id, items: JSON.parse(JSON.stringify(cart)), subtotal, shipping, total, customer: _tempAddress, date: new Date().toLocaleString('en-IN'), status: 'Paid & Confirmed' }); localStorage.setItem('bazar_orders', JSON.stringify(orders)); saveCart([]); if(paymentTimerInterval) clearInterval(paymentTimerInterval); document.getElementById('modalOrderId').innerHTML = `Order ID: ${orders[0].orderNumber}`; new bootstrap.Modal(document.getElementById('successModal')).show(); }
+function closeModalAndGoOrders() { bootstrap.Modal.getInstance(document.getElementById('successModal')).hide(); goPage('orders'); }
+function closeModalAndShop() { bootstrap.Modal.getInstance(document.getElementById('successModal')).hide(); goPage('home'); }
+function closeFailedAndGoCart() { bootstrap.Modal.getInstance(document.getElementById('failedModal')).hide(); goPage('cart'); }
+function renderOrders() { let orders = JSON.parse(localStorage.getItem('bazar_orders') || '[]'), userOrders = orders.filter(o => o.userId === currentUser?.id), mount = document.getElementById('orders-mount'); if(!userOrders.length) { mount.innerHTML = `<div class="text-center py-5"><h3>No orders yet</h3><button class="btn btn-primary-custom" onclick="goPage('products')">Start Shopping</button></div>`; return; } mount.innerHTML = userOrders.map(o => `<div class="card shadow-sm rounded-4 mb-3 border-0" style="background: var(--cream); border:1px solid var(--border);"><div class="card-body"><div class="d-flex flex-wrap justify-content-between align-items-center border-bottom pb-2"><strong style="color:var(--maroon);">${o.orderNumber}</strong><span class="badge" style="background: var(--crimson);">${o.status}</span><strong style="color:var(--crimson);">${fmt(o.total)}</strong></div><div class="mt-2 p-2 rounded-3 small" style="background: #F5EDE0;"><strong>📦 Delivering to:</strong><br>${o.customer.fullName}<br>${o.customer.address}, ${o.customer.city}, ${o.customer.state} - ${o.customer.pincode}<br>📞 ${o.customer.phone}</div><div class="mt-2">${o.items.map(i => `<span class="badge me-1 mb-1" style="background: var(--maroon);">${i.name} x${i.qty||1}</span>`).join('')}</div><div class="text-muted small mt-2">Placed: ${o.date}</div></div></div>`).join(''); }
+function goPage(pg) { document.querySelectorAll('.page').forEach(el=>el.classList.remove('active')); document.getElementById(`p-${pg}`).classList.add('active'); if(pg === 'home') renderHomeProducts(currentHomeFilter); if(pg === 'products') { renderProductsPage(''); document.getElementById('productSearchInput').value = ''; } if(pg === 'cart') renderCart(); if(pg === 'checkout') { if(!currentUser) { toast('Please login to checkout'); goPage('login'); return; } renderCheckout(); if(paymentTimerInterval) clearInterval(paymentTimerInterval); paymentExpiredFlag=false; } if(pg === 'orders') renderOrders(); updateNavbarAll(); updateAllBadges(); window.scrollTo(0,0); }
+loadCurrentUser(); updateNavbarAll(); updateAllBadges(); renderHomeProducts('');
+</script>
+</body>
+</html>

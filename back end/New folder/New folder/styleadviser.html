@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bazar.in — Style Advisor</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Kalam:wght@300;400;700&family=Satisfy&family=Crimson+Pro:ital,wght@0,400;0,600;1,300;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cr: #8B1A2E; --cr2: #5c1020; --cr3: #be2d45;
+  --gold: #b8843a; --gold-l: #e8c98a;
+  --cream: #fdf9f4; --warm: #f8f1e8; --parchment: #ede8df;
+  --ink: #1e110a; --muted: #8a6a5a;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Crimson Pro',Georgia,serif;
+  background:#180608; min-height:100vh;
+  display:flex;align-items:center;justify-content:center;padding:16px;
+  background-image:
+    radial-gradient(ellipse 70% 50% at 15% 85%,rgba(139,26,46,.3) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 40% at 85% 15%,rgba(184,132,58,.12) 0%,transparent 50%);
+}
+.shell{
+  width:100%;max-width:800px;height:88vh;min-height:620px;
+  background:var(--cream);border-radius:26px;overflow:hidden;
+  display:flex;flex-direction:column;
+  box-shadow:0 50px 100px rgba(0,0,0,.65),0 0 0 1px rgba(184,132,58,.25);
+}
+/* HEADER */
+.hdr{
+  background:linear-gradient(108deg,#731424 0%,#4e0e1a 55%,#38090f 100%);
+  padding:16px 24px;display:flex;align-items:center;gap:14px;flex-shrink:0;
+  border-bottom:1px solid rgba(232,201,138,.2);position:relative;overflow:hidden;
+}
+.hdr::before{content:'';position:absolute;inset:0;
+  background-image:repeating-linear-gradient(45deg,transparent,transparent 18px,rgba(232,201,138,.03) 18px,rgba(232,201,138,.03) 19px);}
+.hdr-logo-ring{
+  width:46px;height:46px;border-radius:50%;
+  background:linear-gradient(135deg,#c9954a,#e8c98a);
+  display:flex;align-items:center;justify-content:center;font-size:20px;
+  box-shadow:0 4px 12px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.25);
+  flex-shrink:0;z-index:1;
+}
+.hdr-text{z-index:1;flex:1;}
+.hdr-title{font-family:'Satisfy',cursive;font-size:1.55rem;color:var(--gold-l);line-height:1;text-shadow:0 2px 8px rgba(0,0,0,.4);}
+.hdr-sub{font-family:'Caveat',cursive;font-size:.85rem;color:rgba(232,201,138,.55);margin-top:1px;font-style:italic;}
+.hdr-badge{z-index:1;font-family:'Caveat',cursive;font-size:.82rem;color:var(--gold-l);
+  background:rgba(255,255,255,.07);border:1px solid rgba(232,201,138,.25);border-radius:20px;padding:4px 12px;
+  display:flex;align-items:center;gap:5px;}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#5dde73;animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+
+/* MESSAGES */
+.messages{
+  flex:1;overflow-y:auto;padding:22px 20px 10px;
+  display:flex;flex-direction:column;gap:14px;
+  background:var(--warm);
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 31px,rgba(139,26,46,.028) 31px,rgba(139,26,46,.028) 32px);
+}
+.messages::-webkit-scrollbar{width:3px;}
+.messages::-webkit-scrollbar-thumb{background:rgba(139,26,46,.2);border-radius:3px;}
+
+/* BUBBLES */
+.msg{display:flex;flex-direction:column;max-width:88%;animation:arrive .28s ease;}
+@keyframes arrive{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+.msg.user{align-self:flex-end;align-items:flex-end;}
+.msg.bot{align-self:flex-start;align-items:flex-start;}
+.user .bubble{
+  background:linear-gradient(135deg,#7a1525,#561020);color:white;
+  font-family:'Crimson Pro',serif;font-size:1.08rem;font-style:italic;
+  padding:10px 18px;border-radius:20px 20px 5px 20px;
+  box-shadow:0 4px 14px rgba(139,26,46,.32);line-height:1.5;
+}
+.bot .bubble{
+  background:white;border:1px solid rgba(139,26,46,.1);
+  border-radius:5px 20px 20px 20px;padding:13px 18px;
+  box-shadow:2px 3px 12px rgba(0,0,0,.07);
+  font-family:'Kalam',cursive;font-size:1.05rem;line-height:1.65;color:#2a1206;
+  position:relative;
+}
+.bot .bubble::before{content:'';position:absolute;top:-1px;left:-1px;width:12px;height:12px;
+  border-top:2px solid rgba(139,26,46,.18);border-left:2px solid rgba(139,26,46,.18);border-radius:3px 0 0 0;}
+.bot .bubble strong,.bot .bubble b{font-family:'Caveat',cursive;font-weight:700;font-size:1.12rem;color:var(--cr);}
+.bot .bubble em,.bot .bubble i{font-family:'Crimson Pro',serif;font-style:italic;color:#5c1a0a;font-size:1.1rem;}
+.msg-time{font-family:'Caveat',cursive;font-size:.72rem;color:var(--muted);margin-top:3px;padding:0 6px;opacity:.75;}
+.bot-wrap{display:flex;align-items:flex-start;gap:8px;}
+.bot-av{width:28px;height:28px;border-radius:50%;flex-shrink:0;margin-top:2px;
+  background:linear-gradient(135deg,var(--cr),var(--cr2));
+  display:flex;align-items:center;justify-content:center;font-size:13px;
+  box-shadow:0 2px 6px rgba(139,26,46,.3);font-family:'Satisfy',cursive;color:white;}
+
+/* FILTER PILLS shown in bot bubble */
+.filter-pills{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px;}
+.fpill{
+  font-family:'Caveat',cursive;font-size:.78rem;font-weight:700;
+  padding:2px 10px;border-radius:20px;
+  background:rgba(139,26,46,.09);color:var(--cr);
+  border:1px solid rgba(139,26,46,.2);
+}
+.fpill.type{background:rgba(184,132,58,.12);color:#6b4e1e;border-color:rgba(184,132,58,.3);}
+.fpill.budget{background:rgba(46,125,50,.1);color:#1b5e20;border-color:rgba(46,125,50,.25);}
+
+/* PRODUCT SHELF */
+.shelf-label{font-family:'Satisfy',cursive;font-size:1rem;color:var(--cr);margin-bottom:6px;padding-left:2px;opacity:.85;}
+.product-shelf{
+  display:flex;gap:10px;flex-wrap:nowrap;overflow-x:auto;
+  padding:8px 2px 4px;scrollbar-width:thin;scroll-behavior:smooth;
+}
+.product-shelf::-webkit-scrollbar{height:3px;}
+.product-shelf::-webkit-scrollbar-thumb{background:rgba(139,26,46,.2);border-radius:3px;}
+.pcard{
+  min-width:148px;max-width:148px;background:var(--cream);
+  border:1px solid rgba(139,26,46,.1);border-radius:14px;overflow:hidden;
+  box-shadow:0 3px 10px rgba(0,0,0,.07);transition:transform .2s,box-shadow .2s;
+  flex-shrink:0;cursor:pointer;
+}
+.pcard:hover{transform:translateY(-4px);box-shadow:0 10px 22px rgba(139,26,46,.14);}
+.pcard-img{width:100%;height:108px;object-fit:cover;display:block;}
+.pcard-body{padding:8px 10px 10px;}
+.pcard-name{font-family:'Caveat',cursive;font-size:.9rem;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:4px;}
+.pcard-price{font-family:'Kalam',cursive;font-size:.85rem;color:var(--cr);font-weight:700;}
+.pcard-mrp{font-family:'Caveat',cursive;font-size:.72rem;color:var(--muted);text-decoration:line-through;margin-left:4px;}
+.pcard-tag{display:inline-block;margin-top:4px;font-family:'Caveat',cursive;font-size:.68rem;font-weight:600;
+  background:rgba(139,26,46,.08);color:var(--cr);border-radius:20px;padding:1px 7px;}
+
+/* NO RESULTS */
+.no-results{
+  font-family:'Kalam',cursive;font-size:.9rem;color:var(--muted);
+  padding:10px 0 4px;font-style:italic;
+}
+
+/* TYPING */
+.typing-bub{background:white;border:1px solid rgba(139,26,46,.1);border-radius:5px 20px 20px 20px;
+  padding:12px 16px;display:flex;gap:5px;align-items:center;box-shadow:2px 3px 12px rgba(0,0,0,.07);}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--cr3);animation:bou 1.2s infinite;}
+.dot:nth-child(2){animation-delay:.2s}.dot:nth-child(3){animation-delay:.4s}
+@keyframes bou{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+
+/* QUICK REPLIES */
+.qr-row{padding:7px 20px 5px;background:var(--cream);
+  border-top:1px solid rgba(139,26,46,.07);display:flex;flex-wrap:wrap;gap:7px;flex-shrink:0;}
+.qr{font-family:'Caveat',cursive;font-size:.88rem;font-weight:600;
+  padding:5px 15px;border-radius:30px;border:1px solid rgba(139,26,46,.18);
+  background:white;color:var(--cr);cursor:pointer;transition:all .13s;}
+.qr:hover{background:var(--cr);color:white;}
+
+/* INPUT */
+.inp-zone{padding:10px 16px 14px;background:white;border-top:1px solid rgba(139,26,46,.1);
+  display:flex;gap:10px;align-items:flex-end;flex-shrink:0;}
+.inp-zone textarea{
+  flex:1;resize:none;min-height:44px;max-height:96px;
+  border:1.5px solid rgba(139,26,46,.18);border-radius:14px;padding:10px 15px;
+  font-family:'Kalam',cursive;font-size:1rem;color:var(--ink);
+  background:var(--warm);outline:none;transition:border-color .2s,box-shadow .2s;line-height:1.45;
+}
+.inp-zone textarea:focus{border-color:var(--cr);box-shadow:0 0 0 3px rgba(139,26,46,.1);}
+.inp-zone textarea::placeholder{color:#c0a090;font-style:italic;}
+.send-btn{width:44px;height:44px;flex-shrink:0;background:var(--cr);border:none;border-radius:12px;
+  color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all .15s;box-shadow:0 4px 12px rgba(139,26,46,.4);}
+.send-btn:hover{background:var(--cr2);transform:scale(.95);}
+.send-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+.footer{text-align:center;padding:5px;font-family:'Caveat',cursive;font-size:.72rem;
+  color:rgba(122,99,85,.55);background:white;border-top:1px solid rgba(139,26,46,.05);flex-shrink:0;}
+@media(max-width:520px){.shell{height:94vh;border-radius:18px;}.msg{max-width:92%;}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="hdr">
+    <div class="hdr-logo-ring">🛍️</div>
+    <div class="hdr-text">
+      <div class="hdr-title">Bazar.in</div>
+      <div class="hdr-sub">your personal shopping friend ✦</div>
+    </div>
+    <div class="hdr-badge"><div class="live-dot"></div> here for you</div>
+  </div>
+  <div class="messages" id="msgs"></div>
+  <div class="qr-row" id="qrRow"></div>
+  <div class="inp-zone">
+    <textarea id="inp" placeholder="try: formal shoes men  or  casual jacket women  or  budget earrings…" rows="1"></textarea>
+    <button class="send-btn" id="sendBtn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+      </svg>
+    </button>
+  </div>
+  <div class="footer">written just for you ✦ Bazar.in India</div>
+</div>
+
+<script>
+// ════════════════════════════════════════════════════════
+// PRODUCTS — every product has multi-dimensional tags:
+//   gender: men | women | unisex
+//   type:   shoes | shirt | jacket | ...
+//   style:  formal | casual | ethnic | sporty | party | winter | summer
+//   cat:    clothing | footwear | accessories | electronics | home
+// ════════════════════════════════════════════════════════
+const PRODUCTS = [
+  // MEN — CLOTHING
+  { id:1,  name:"Crimson Velvet Jacket",    price:2199, mrp:3999,  img:"https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&h=375&fit=crop",   gender:["men"],       type:["jacket","outerwear"], style:["party","formal","winter"],  cat:"clothing"     },
+  { id:3,  name:"Cream Oxford Shirt",       price:1199, mrp:1999,  img:"https://images.unsplash.com/photo-1598032895397-b9472444bf93?w=500&h=375&fit=crop",   gender:["men"],       type:["shirt","top"],        style:["formal","casual"],          cat:"clothing"     },
+  { id:6,  name:"Graphic Tee - Noir",       price:899,  mrp:1499,  img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=375&fit=crop",   gender:["men"],       type:["shirt","tee","top"],  style:["casual","streetwear"],      cat:"clothing"     },
+  { id:7,  name:"Wool-Blend Overcoat",      price:4999, mrp:8999,  img:"https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=500&h=375&fit=crop",   gender:["men"],       type:["jacket","coat"],      style:["formal","winter"],          cat:"clothing"     },
+  { id:11, name:"Denim Trucker Jacket",     price:2799, mrp:4499,  img:"https://images.unsplash.com/photo-1521223895411-b9f0b134d0cf?w=500&h=375&fit=crop",   gender:["men"],       type:["jacket"],             style:["casual","streetwear"],      cat:"clothing"     },
+  { id:12, name:"Cotton Henley Shirt",      price:999,  mrp:1799,  img:"https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=500&h=375&fit=crop",   gender:["men"],       type:["shirt","top"],        style:["casual"],                   cat:"clothing"     },
+  { id:13, name:"Cargo Joggers",            price:1399, mrp:2499,  img:"https://images.unsplash.com/photo-1517438476313-10a78a6d60bb?w=500&h=375&fit=crop",   gender:["men"],       type:["pants","trousers"],   style:["casual","streetwear"],      cat:"clothing"     },
+  { id:14, name:"Leather Biker Jacket",     price:5999, mrp:9999,  img:"https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&h=375&fit=crop",   gender:["men"],       type:["jacket"],             style:["casual","streetwear","party"],cat:"clothing"     },
+  { id:15, name:"Plaid Flannel Shirt",      price:1199, mrp:2199,  img:"https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500&h=375&fit=crop",   gender:["men"],       type:["shirt","top"],        style:["casual","winter"],          cat:"clothing"     },
+  { id:16, name:"Running Shorts",           price:799,  mrp:1499,  img:"https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=500&h=375&fit=crop",   gender:["men"],       type:["shorts","pants"],     style:["sporty","gym"],             cat:"clothing"     },
+  { id:5,  name:"Navy Slim Fit Chinos",     price:1599, mrp:2799,  img:"https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=500&h=375&fit=crop",   gender:["men"],       type:["pants","trousers","chinos"],style:["formal","casual"],        cat:"clothing"     },
+  // MEN — FOOTWEAR
+  { id:2,  name:"Maroon Leather Boots",     price:3599, mrp:5999,  img:"https://images.unsplash.com/photo-1542849956-f17bc6e2ff81?w=500&h=375&fit=crop",   gender:["men"],       type:["shoes","boots"],      style:["formal","casual","party"],  cat:"footwear"     },
+  { id:4,  name:"Gold Accent Sneakers",     price:2899, mrp:4499,  img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&h=375&fit=crop",   gender:["men"],       type:["shoes","sneakers"],   style:["casual","streetwear"],      cat:"footwear"     },
+  { id:10, name:"Burgundy High-Tops",       price:3299, mrp:5499,  img:"https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=500&h=375&fit=crop",   gender:["men"],       type:["shoes","sneakers","boots"],style:["casual","streetwear"],    cat:"footwear"     },
+  { id:18, name:"Suede Loafers",            price:2499, mrp:3999,  img:"https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=500&h=375&fit=crop",   gender:["men"],       type:["shoes","loafers"],    style:["formal","casual"],          cat:"footwear"     },
+  // MEN — ACCESSORIES
+  { id:8,  name:"Minimalist Backpack",      price:1999, mrp:3499,  img:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&h=375&fit=crop",   gender:["men"],       type:["bag","backpack"],     style:["casual","formal"],          cat:"accessories"  },
+  { id:9,  name:"Aviator Sunglasses",       price:1299, mrp:2499,  img:"https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=500&h=375&fit=crop",   gender:["men","unisex"],type:["glasses","sunglasses"],style:["casual","summer"],        cat:"accessories"  },
+  { id:17, name:"Wool Fedora Hat",          price:1499, mrp:2799,  img:"https://images.unsplash.com/photo-1524095286092-8e9c87a0b490?w=500&h=375&fit=crop",   gender:["men","unisex"],type:["hat"],              style:["casual","winter"],          cat:"accessories"  },
+  // WOMEN — CLOTHING
+  { id:19, name:"Burgundy Maxi Dress",      price:2499, mrp:3999,  img:"https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=500&h=375&fit=crop",   gender:["women"],     type:["dress"],              style:["party","ethnic","formal"],  cat:"clothing"     },
+  { id:20, name:"Wine Skinny Jeans",        price:1899, mrp:3299,  img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500&h=375&fit=crop",   gender:["women"],     type:["jeans","pants","trousers"],style:["casual"],                 cat:"clothing"     },
+  { id:22, name:"Silk Blouse - Champagne",  price:1699, mrp:2999,  img:"https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&h=375&fit=crop",   gender:["women"],     type:["shirt","blouse","top"],style:["formal","party"],             cat:"clothing"     },
+  { id:23, name:"High-Waist Trousers",      price:2099, mrp:3599,  img:"https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=500&h=375&fit=crop",   gender:["women"],     type:["pants","trousers"],   style:["formal","casual"],          cat:"clothing"     },
+  { id:25, name:"Oversized Denim Jacket",   price:2299, mrp:3999,  img:"https://images.unsplash.com/photo-1521223895411-b9f0b134d0cf?w=500&h=375&fit=crop",   gender:["women"],     type:["jacket"],             style:["casual","streetwear"],      cat:"clothing"     },
+  { id:27, name:"Floral Summer Dress",      price:1899, mrp:3299,  img:"https://images.unsplash.com/photo-1495385794356-15371f348c31?w=500&h=375&fit=crop",   gender:["women"],     type:["dress"],              style:["casual","summer"],          cat:"clothing"     },
+  { id:29, name:"Pleated Midi Skirt",       price:1599, mrp:2799,  img:"https://images.unsplash.com/photo-1583496661160-f4b5882a0207?w=500&h=375&fit=crop",   gender:["women"],     type:["skirt"],              style:["formal","casual","party"],  cat:"clothing"     },
+  { id:30, name:"Cropped Cardigan",         price:1299, mrp:2299,  img:"https://images.unsplash.com/photo-1434389674359-3b6b6ee6c8e5?w=500&h=375&fit=crop",   gender:["women"],     type:["top","sweater"],      style:["casual","winter"],          cat:"clothing"     },
+  { id:31, name:"Sports Bra",               price:899,  mrp:1599,  img:"https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=500&h=375&fit=crop",   gender:["women"],     type:["top","sportswear"],   style:["sporty","gym"],             cat:"clothing"     },
+  { id:34, name:"Leggings - High Rise",     price:1099, mrp:1999,  img:"https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=500&h=375&fit=crop",   gender:["women"],     type:["pants","leggings"],   style:["sporty","gym","casual"],    cat:"clothing"     },
+  { id:35, name:"Trench Coat",              price:4499, mrp:7999,  img:"https://images.unsplash.com/photo-1544441892-794166f1e3be?w=500&h=375&fit=crop",   gender:["women"],     type:["jacket","coat"],      style:["formal","casual","winter"], cat:"clothing"     },
+  // WOMEN — FOOTWEAR
+  { id:24, name:"Leather Ankle Boots",      price:3899, mrp:6499,  img:"https://images.unsplash.com/photo-1542849956-f17bc6e2ff81?w=500&h=375&fit=crop",   gender:["women"],     type:["shoes","boots"],      style:["formal","casual","party"],  cat:"footwear"     },
+  { id:36, name:"Ballet Flats",             price:1499, mrp:2599,  img:"https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=500&h=375&fit=crop",   gender:["women"],     type:["shoes","flats"],      style:["casual","formal"],          cat:"footwear"     },
+  // WOMEN — ACCESSORIES
+  { id:21, name:"Gold Chain Handbag",       price:2799, mrp:4999,  img:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=500&h=375&fit=crop",   gender:["women"],     type:["bag","handbag"],      style:["party","formal","casual"],  cat:"accessories"  },
+  { id:26, name:"Pearl Drop Earrings",      price:799,  mrp:1599,  img:"https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500&h=375&fit=crop",   gender:["women"],     type:["earrings","jewellery"],style:["formal","casual","party"],  cat:"accessories"  },
+  { id:28, name:"Cashmere Scarf",           price:999,  mrp:1999,  img:"https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=500&h=375&fit=crop",   gender:["women","unisex"],type:["scarf","accessories"],style:["casual","winter"],        cat:"accessories"  },
+  { id:32, name:"Wide Brim Hat",            price:1199, mrp:1999,  img:"https://images.unsplash.com/photo-1524095286092-8e9c87a0b490?w=500&h=375&fit=crop",   gender:["women","unisex"],type:["hat"],              style:["casual","summer"],          cat:"accessories"  },
+  { id:33, name:"Statement Necklace",       price:899,  mrp:1699,  img:"https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500&h=375&fit=crop",   gender:["women"],     type:["necklace","jewellery"],style:["party","formal","casual"],  cat:"accessories"  },
+  // UNISEX ACCESSORIES
+  { id:37, name:"Elegant Chrono Watch",     price:1799, mrp:2999,  img:"https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=500&h=375&fit=crop",   gender:["unisex"],    type:["watch"],              style:["formal","casual"],          cat:"accessories"  },
+  { id:38, name:"Gradient Aviators",        price:1499, mrp:2799,  img:"https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&h=375&fit=crop",   gender:["unisex"],    type:["glasses","sunglasses"],style:["casual","summer"],          cat:"accessories"  },
+  { id:39, name:"Leather Belt - Tan",       price:899,  mrp:1699,  img:"https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&h=375&fit=crop",   gender:["unisex"],    type:["belt","accessories"],  style:["formal","casual"],          cat:"accessories"  },
+  { id:40, name:"Silk Pocket Square",       price:499,  mrp:999,   img:"https://images.unsplash.com/photo-1586363104864-3c2e6f81d32a?w=500&h=375&fit=crop",   gender:["men"],       type:["accessories"],        style:["formal"],                   cat:"accessories"  },
+  { id:41, name:"Minimalist Wallet",        price:699,  mrp:1299,  img:"https://images.unsplash.com/photo-1627123424574-724758594e93?w=500&h=375&fit=crop",   gender:["unisex"],    type:["wallet","accessories"],style:["formal","casual"],          cat:"accessories"  },
+  { id:42, name:"Leather Backpack",         price:3299, mrp:5499,  img:"https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=500&h=375&fit=crop",   gender:["unisex"],    type:["bag","backpack"],     style:["casual","formal"],          cat:"accessories"  },
+  { id:43, name:"Silver Cufflinks",         price:1199, mrp:1999,  img:"https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=500&h=375&fit=crop",   gender:["men"],       type:["accessories","jewellery"],style:["formal"],                 cat:"accessories"  },
+  { id:44, name:"Silk Tie - Burgundy",      price:799,  mrp:1499,  img:"https://images.unsplash.com/photo-1589756823695-278bc923f962?w=500&h=375&fit=crop",   gender:["men"],       type:["accessories","tie"],  style:["formal"],                   cat:"accessories"  },
+  { id:45, name:"Beanie Cap",               price:399,  mrp:799,   img:"https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=500&h=375&fit=crop",   gender:["unisex"],    type:["hat","cap"],          style:["casual","winter","streetwear"],cat:"accessories"},
+  { id:46, name:"Leather Gloves",           price:999,  mrp:1799,  img:"https://images.unsplash.com/photo-1559056199-5a47f60c5053?w=500&h=375&fit=crop",   gender:["unisex"],    type:["accessories","gloves"],style:["formal","winter"],            cat:"accessories"  },
+  { id:47, name:"Fashion Ring Set",         price:599,  mrp:1199,  img:"https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500&h=375&fit=crop",   gender:["women"],     type:["ring","jewellery"],   style:["casual","party","formal"],  cat:"accessories"  },
+  { id:48, name:"Canvas Tote Bag",          price:799,  mrp:1499,  img:"https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=500&h=375&fit=crop",   gender:["unisex"],    type:["bag","tote"],         style:["casual"],                   cat:"accessories"  },
+  // ELECTRONICS
+  { id:49, name:"Crimson Headphones",       price:4499, mrp:8999,  img:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=375&fit=crop",   gender:["unisex"],    type:["headphones","audio"], style:["casual"],                   cat:"electronics"  },
+  { id:50, name:"Maroon Earbuds",           price:2799, mrp:4999,  img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&h=375&fit=crop",   gender:["unisex"],    type:["earbuds","audio"],    style:["casual","sporty"],          cat:"electronics"  },
+  { id:51, name:"Gold Mechanical Keyboard", price:4599, mrp:6999,  img:"https://images.unsplash.com/photo-1618384887929-16ec33f9efcf?w=500&h=375&fit=crop",   gender:["unisex"],    type:["keyboard","gaming"],  style:["casual"],                   cat:"electronics"  },
+  { id:52, name:"Mahogany Speaker",         price:2299, mrp:3999,  img:"https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500&h=375&fit=crop",   gender:["unisex"],    type:["speaker","audio"],    style:["casual"],                   cat:"electronics"  },
+  { id:53, name:"Crimson Gaming Mouse",     price:1999, mrp:3499,  img:"https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500&h=375&fit=crop",   gender:["unisex"],    type:["mouse","gaming"],     style:["casual"],                   cat:"electronics"  },
+  { id:54, name:"Rose Gold Smart Watch",    price:7999, mrp:12999, img:"https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=500&h=375&fit=crop",   gender:["unisex"],    type:["watch","smartwatch"], style:["casual","formal"],          cat:"electronics"  },
+  { id:55, name:"Ultra-wide Monitor",       price:18999,mrp:27999, img:"https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=500&h=375&fit=crop",   gender:["unisex"],    type:["monitor","gaming"],   style:["casual"],                   cat:"electronics"  },
+  { id:56, name:"Wireless Charger Pad",     price:1299, mrp:2499,  img:"https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=500&h=375&fit=crop",   gender:["unisex"],    type:["charger","accessories"],style:["casual"],                 cat:"electronics"  },
+  { id:57, name:"Noise Cancelling Headphones",price:6499,mrp:11999,img:"https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=500&h=375&fit=crop",   gender:["unisex"],    type:["headphones","audio"], style:["casual","formal"],          cat:"electronics"  },
+  { id:58, name:"Streaming Webcam",         price:3999, mrp:6999,  img:"https://images.unsplash.com/photo-1595079676339-1534801ad6cf?w=500&h=375&fit=crop",   gender:["unisex"],    type:["webcam","camera"],    style:["casual"],                   cat:"electronics"  },
+  { id:59, name:"Gaming Chair",             price:12999,mrp:19999, img:"https://images.unsplash.com/photo-1598550476439-6847785fcea6?w=500&h=375&fit=crop",   gender:["unisex"],    type:["chair","gaming"],     style:["casual"],                   cat:"electronics"  },
+  { id:60, name:"Portable SSD 1TB",         price:6999, mrp:11999, img:"https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=500&h=375&fit=crop",   gender:["unisex"],    type:["storage","tech"],     style:["casual"],                   cat:"electronics"  },
+  // HOME
+  { id:61, name:"Ceramic Table Lamp",       price:1899, mrp:3299,  img:"https://images.unsplash.com/photo-1507473885765-e6b057f782df?w=500&h=375&fit=crop",   gender:["unisex"],    type:["lamp","decor"],       style:["casual"],                   cat:"home"         },
+  { id:62, name:"Scented Candle Set",       price:1199, mrp:1999,  img:"https://images.unsplash.com/photo-1602874801007-bd36bb35b5eb?w=500&h=375&fit=crop",   gender:["unisex"],    type:["candle","gift"],      style:["casual"],                   cat:"home"         },
+  { id:63, name:"Boho Throw Blanket",       price:1599, mrp:2799,  img:"https://images.unsplash.com/photo-1583845112203-29329902332e?w=500&h=375&fit=crop",   gender:["unisex"],    type:["blanket","decor"],    style:["casual"],                   cat:"home"         },
+  { id:64, name:"Marble Coffee Table",      price:7999, mrp:12999, img:"https://images.unsplash.com/photo-1532372320572-cda25653a26d?w=500&h=375&fit=crop",   gender:["unisex"],    type:["furniture","table"],  style:["formal","casual"],          cat:"home"         },
+  { id:65, name:"Abstract Wall Art",        price:2499, mrp:4499,  img:"https://images.unsplash.com/photo-1513519245088-0e12902e35a3?w=500&h=375&fit=crop",   gender:["unisex"],    type:["art","decor"],        style:["casual"],                   cat:"home"         },
+  { id:66, name:"Memory Foam Pillow",       price:1299, mrp:2499,  img:"https://images.unsplash.com/photo-1584100936595-c0654b55a2e6?w=500&h=375&fit=crop",   gender:["unisex"],    type:["pillow","decor"],     style:["casual"],                   cat:"home"         },
+  { id:67, name:"Bamboo Cutting Board",     price:899,  mrp:1599,  img:"https://images.unsplash.com/photo-1584995408991-1e0a8bdc9c7e?w=500&h=375&fit=crop",   gender:["unisex"],    type:["kitchen","cooking"],  style:["casual"],                   cat:"home"         },
+  { id:68, name:"Indoor Plant - Fiddle Leaf",price:1499,mrp:2599,  img:"https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=500&h=375&fit=crop",   gender:["unisex"],    type:["plant","decor"],      style:["casual"],                   cat:"home"         },
+  { id:69, name:"Bath Towel Set",           price:999,  mrp:1799,  img:"https://images.unsplash.com/photo-1583845112203-29329902332e?w=500&h=375&fit=crop",   gender:["unisex"],    type:["towel","bath"],       style:["casual"],                   cat:"home"         },
+  { id:70, name:"Kitchen Knife Set",        price:3499, mrp:5999,  img:"https://images.unsplash.com/photo-1593618998160-e34014e67546?w=500&h=375&fit=crop",   gender:["unisex"],    type:["knife","kitchen"],    style:["casual"],                   cat:"home"         },
+];
+
+// ════════════════════════════════════════════════════════
+// INTENT EXTRACTION — parse any input into structured signals
+// ════════════════════════════════════════════════════════
+
+// Every synonym → canonical signal
+const SIGNAL_MAP = {
+  // ── GENDER ──
+  gender_men:     ["men","man","male","boys","boy","guy","guys","his","him","mens","gents","he"],
+  gender_women:   ["women","woman","female","girl","girls","ladies","lady","her","hers","womens","she"],
+  gender_unisex:  ["unisex","both","anyone"],
+
+  // ── PRODUCT TYPES ──
+  type_shirt:     ["shirt","shirts","tee","tees","t-shirt","t shirt","tshirt","top","henley","blouse","flannel","oxford"],
+  type_jacket:    ["jacket","jackets","coat","coats","blazer","overcoat","biker","trucker","windbreaker","outerwear"],
+  type_shoes:     ["shoes","shoe","footwear","sneakers","sneaker","boots","boot","loafers","loafer","flats","flat","heels","heel","sandals","juttis","khussa","pumps"],
+  type_dress:     ["dress","dresses","gown","maxi","midi","frock","kurta","kurti","anarkali"],
+  type_pants:     ["pants","trousers","jeans","chinos","joggers","shorts","leggings","bottoms","lower"],
+  type_bag:       ["bag","bags","backpack","handbag","purse","tote","clutch","sling"],
+  type_watch:     ["watch","watches","smartwatch","timepiece","chrono"],
+  type_glasses:   ["glasses","sunglasses","shades","eyewear","specs","spectacles","aviator"],
+  type_jewellery: ["jewellery","jewelry","earrings","necklace","ring","bracelet","cufflinks","pendant"],
+  type_hat:       ["hat","hats","cap","caps","beanie","fedora","headwear","beanies"],
+  type_belt:      ["belt","belts"],
+  type_scarf:     ["scarf","scarves","stole","dupatta","shawl"],
+  type_headphones:["headphones","earphones","earbuds","tws","audio","airpods"],
+  type_speaker:   ["speaker","speakers","bluetooth speaker"],
+  type_keyboard:  ["keyboard","mechanical keyboard"],
+  type_mouse:     ["mouse","gaming mouse"],
+  type_monitor:   ["monitor","screen","display"],
+  type_gaming:    ["gaming","gamer","game"],
+  type_candle:    ["candle","candles","scented"],
+  type_plant:     ["plant","plants","indoor plant"],
+  type_lamp:      ["lamp","lamps","light","lighting"],
+  type_decor:     ["decor","decoration","home decor","wall art","art"],
+  type_wallet:    ["wallet","wallets","purse"],
+  type_skirt:     ["skirt","skirts"],
+
+  // ── STYLE / OCCASION ──
+  style_formal:   ["formal","office","work","corporate","professional","business","suit","interview","meeting","formals","workplace","executive"],
+  style_casual:   ["casual","everyday","daily","regular","chill","chilling","relax","relaxed","weekend","street","streets","basic","simple","comfy","comfortable"],
+  style_party:    ["party","parties","night out","nightout","club","clubbing","event","function","festive","celebration","date","evening","prom","cocktail","reception"],
+  style_ethnic:   ["ethnic","traditional","indian","desi","festive","wedding","mehndi","sangeet","pooja","puja","cultural","saree","kurta","ethnic wear"],
+  style_sporty:   ["sporty","sport","sports","gym","workout","fitness","athletic","yoga","training","exercise","running","jogging","active","activewear"],
+  style_winter:   ["winter","cold","warm","woolen","wool","thermal","cozy","cosy","chilly","jacket weather"],
+  style_summer:   ["summer","hot","beach","tropical","light","breathable","vacation","holiday","travel"],
+  style_streetwear:["street","streetwear","hype","hypebeast","urban","skate","skateboard"],
+
+  // ── BUDGET ──
+  budget_low:     ["cheap","budget","affordable","inexpensive","low budget","less","value","economical","under 1000","under 500","under 1500","₹500","₹1000","₹1500"],
+  budget_mid:     ["mid range","moderate","medium budget","reasonable","under 3000","under 2000","₹2000","₹3000"],
+  budget_high:    ["premium","luxury","expensive","high end","high-end","splurge","best","top","elite","under 5000","under 10000"],
+
+  // ── GIFT ──
+  intent_gift:    ["gift","gifts","present","birthday","anniversary","surprise","gifting","for my","give"],
+};
+
+// Build reverse lookup: word → [signal_keys]
+const WORD_TO_SIGNALS = {};
+for (const [signal, words] of Object.entries(SIGNAL_MAP)) {
+  for (const w of words) {
+    if (!WORD_TO_SIGNALS[w]) WORD_TO_SIGNALS[w] = [];
+    WORD_TO_SIGNALS[w].push(signal);
+  }
+}
+
+function extractSignals(query) {
+  const lq = query.toLowerCase();
+  const found = new Set();
+
+  // sort by length desc so "mechanical keyboard" matches before "keyboard"
+  const entries = Object.keys(WORD_TO_SIGNALS).sort((a,b) => b.length - a.length);
+  for (const kw of entries) {
+    if (lq.includes(kw)) {
+      for (const sig of WORD_TO_SIGNALS[kw]) found.add(sig);
+    }
+  }
+
+  // also extract budget numbers  e.g. "under 2000", "below 3000", "₹1500"
+  const budgetMatch = lq.match(/(?:under|below|within|less than|upto|up to|₹)\s*(\d[\d,]*)/);
+  let maxPrice = null;
+  if (budgetMatch) {
+    maxPrice = parseInt(budgetMatch[1].replace(/,/g,''), 10);
+  }
+
+  return { signals: found, maxPrice };
+}
+
+// ════════════════════════════════════════════════════════
+// MULTI-SIGNAL MATCHING ENGINE
+// Scores every product against detected signals using
+// intersection logic: type+style signals multiply score
+// ════════════════════════════════════════════════════════
+
+function matchProducts(signals, maxPrice) {
+  const genderSignals = [...signals].filter(s => s.startsWith('gender_'));
+  const typeSignals   = [...signals].filter(s => s.startsWith('type_'));
+  const styleSignals  = [...signals].filter(s => s.startsWith('style_'));
+
+  // map signals → actual dimension values
+  const wantedGenders = genderSignals.flatMap(s => {
+    if (s === 'gender_men')   return ['men'];
+    if (s === 'gender_women') return ['women'];
+    if (s === 'gender_unisex')return ['unisex'];
+    return [];
+  });
+  const wantedTypes  = typeSignals.flatMap(s => s.replace('type_','').split(','));
+  const wantedStyles = styleSignals.flatMap(s => s.replace('style_','').split(','));
+
+  const scored = PRODUCTS.map(p => {
+    let score = 0;
+    let multiplier = 1;
+
+    // ── GENDER match ──
+    if (wantedGenders.length > 0) {
+      const gMatch = wantedGenders.some(g => p.gender.includes(g) || p.gender.includes('unisex'));
+      if (!gMatch) return { ...p, score: 0 }; // hard filter
+      score += 10;
+    }
+
+    // ── TYPE match ──
+    if (wantedTypes.length > 0) {
+      let typeScore = 0;
+      for (const wt of wantedTypes) {
+        for (const pt of p.type) {
+          if (pt.includes(wt) || wt.includes(pt)) { typeScore += 20; break; }
+        }
+      }
+      if (typeScore === 0) return { ...p, score: 0 }; // hard filter: type must match
+      score += typeScore;
+    }
+
+    // ── STYLE match ──
+    if (wantedStyles.length > 0) {
+      let styleScore = 0;
+      for (const ws of wantedStyles) {
+        if (p.style.includes(ws)) {
+          styleScore += 15;
+          multiplier *= 1.5; // style match boosts heavily
+        }
+      }
+      // don't hard-filter on style — just boost/penalise
+      if (styleScore === 0) score -= 5;
+      else score += styleScore;
+    }
+
+    // ── BUDGET filter ──
+    if (maxPrice !== null && p.price > maxPrice) return { ...p, score: 0 };
+
+    score = Math.round(score * multiplier);
+    return { ...p, score };
+  }).filter(p => p.score > 0);
+
+  scored.sort((a,b) => b.score - a.score);
+  return scored.slice(0, 8);
+}
+
+// ════════════════════════════════════════════════════════
+// REPLY GENERATION — human, warm, context-aware
+// ════════════════════════════════════════════════════════
+
+function buildReply(signals, maxPrice, results) {
+  const sig = [...signals];
+  const hasGender  = sig.filter(s=>s.startsWith('gender_'));
+  const hasType    = sig.filter(s=>s.startsWith('type_'));
+  const hasStyle   = sig.filter(s=>s.startsWith('style_'));
+  const hasGift    = sig.includes('intent_gift');
+  const hasElec    = hasType.some(t=>['type_headphones','type_speaker','type_keyboard','type_mouse','type_monitor','type_gaming'].includes(t));
+
+  // nicely readable labels
+  const gLabel = hasGender.map(g=>g==='gender_men'?'men\'s':g==='gender_women'?'women\'s':'unisex').join(' & ');
+  const tLabel = hasType.map(t=>t.replace('type_','')).join(' + ');
+  const sLabel = hasStyle.map(s=>s.replace('style_','')).join(' + ');
+
+  if (results.length === 0) {
+    return `hmm, I searched everywhere but couldn't find an exact match for <em>${[gLabel,sLabel,tLabel].filter(Boolean).join(' · ')}</em> 🥺 maybe try slightly different words? like <strong>formal shoes men</strong> or <strong>casual jacket women</strong>~`;
+  }
+
+  // Contextual openers based on what signals fired
+  const openers = [];
+
+  if (hasStyle.includes('style_formal') && hasType.some(t=>t.includes('shoes')))
+    openers.push(`oh yes, <strong>formal shoes</strong>! 👞 these are the ones I'd actually pick for an office look —`);
+  else if (hasStyle.includes('style_formal') && hasType.some(t=>t.includes('jacket')))
+    openers.push(`a <strong>formal jacket</strong> — yes! 🧥 nothing says "I mean business" quite like a great one. here's what we've got —`);
+  else if (hasStyle.includes('style_casual') && hasType.some(t=>t.includes('shoes')))
+    openers.push(`casual shoes! 👟 honestly my fav category. these are so good for everyday wear —`);
+  else if (hasStyle.includes('style_party') && hasType.some(t=>t.includes('dress')))
+    openers.push(`party dresses!! 🎉 okay this is the fun part. these are *gorgeous* —`);
+  else if (hasStyle.includes('style_gym') || hasStyle.includes('style_sporty'))
+    openers.push(`gym / sporty picks coming right up! 🏋️ honestly our activewear is really solid —`);
+  else if (hasStyle.includes('style_winter'))
+    openers.push(`winter picks! 🧣 these will keep you warm AND looking great —`);
+  else if (hasStyle.includes('style_ethnic'))
+    openers.push(`ethnic / festive looks~ 🪷 honestly such a vibe. here are my picks —`);
+  else if (hasStyle.includes('style_summer'))
+    openers.push(`summer essentials! ☀️ light, breezy and still stylish — have a look —`);
+  else if (hasGift)
+    openers.push(`gifting time! 🎁 honestly I love helping pick gifts. these are genuinely lovely options —`);
+  else if (hasElec)
+    openers.push(`tech picks! 💻 these are the ones I'd actually recommend —`);
+  else if (hasType.length && hasGender.length)
+    openers.push(`found some great <strong>${gLabel} ${tLabel}</strong> for you! 🛍️ have a look —`);
+  else if (hasType.length)
+    openers.push(`here are the best <strong>${tLabel}</strong> we have right now~ ✨`);
+  else
+    openers.push(`okay here's what I found for you! 🛍️ pretty great selection —`);
+
+  // add budget note
+  let budgetNote = '';
+  if (maxPrice) budgetNote = `<span class="hw-tip">🏷️ showing only products under ₹${maxPrice.toLocaleString('en-IN')} as requested~</span>`;
+
+  // add filter pill labels
+  const pills = [
+    ...(hasGender.map(g=>`<span class="fpill">${g==='gender_men'?'👔 Men':g==='gender_women'?'👗 Women':'🔁 Unisex'}</span>`)),
+    ...(hasStyle.map(s=>`<span class="fpill type">${s.replace('style_','')}</span>`)),
+    ...(hasType.map(t=>`<span class="fpill">${t.replace('type_','')}</span>`)),
+    ...(maxPrice?[`<span class="fpill budget">under ₹${maxPrice.toLocaleString('en-IN')}</span>`]:[]),
+  ].join('');
+
+  const pillHtml = pills ? `<div class="filter-pills">${pills}</div>` : '';
+
+  return `${pillHtml}${openers[0]}${budgetNote}`;
+}
+
+// ════════════════════════════════════════════════════════
+// QUICK REPLY SUGGESTIONS based on last signals
+// ════════════════════════════════════════════════════════
+const SMART_QR = {
+  default: ['👗 Women casual dress','👔 Men formal shoes','🧥 Jacket winter women','💍 Party jewellery','🎧 Headphones budget','🎁 Gift ideas'],
+  formal:  ['👞 Formal shoes men','👗 Formal dress women','👔 Formal shirt men','💼 Formal bag women','⌚ Formal watch'],
+  casual:  ['👟 Casual sneakers men','👕 Casual shirt women','🧥 Casual jacket','👖 Casual jeans women','🎒 Casual bag'],
+  party:   ['👗 Party dress women','👡 Party shoes women','💍 Party jewellery','🧥 Party jacket men'],
+  gym:     ['🏃 Gym shorts men','💪 Sports bra women','🧘 Leggings women','👟 Gym shoes'],
+  winter:  ['🧣 Winter scarf','🧤 Gloves winter','🧥 Coat women winter','🎩 Beanie winter'],
+  ethnic:  ['👗 Ethnic dress women','🥻 Festive maxi dress','💍 Jewellery ethnic'],
+  men:     ['👔 Men formal shirt','👟 Men sneakers casual','🧥 Men jacket winter','👖 Men chinos formal'],
+  women:   ['👗 Women party dress','👠 Women formal shoes','👜 Women handbag','💍 Women jewellery'],
+};
+
+function getSmartQR(signals) {
+  const sig = [...signals];
+  if (sig.includes('style_formal'))   return SMART_QR.formal;
+  if (sig.includes('style_party'))    return SMART_QR.party;
+  if (sig.some(s=>['style_sporty','style_gym'].includes(s))) return SMART_QR.gym;
+  if (sig.includes('style_winter'))   return SMART_QR.winter;
+  if (sig.includes('style_ethnic'))   return SMART_QR.ethnic;
+  if (sig.includes('style_casual'))   return SMART_QR.casual;
+  if (sig.includes('gender_men'))     return SMART_QR.men;
+  if (sig.includes('gender_women'))   return SMART_QR.women;
+  return SMART_QR.default;
+}
+
+// ════════════════════════════════════════════════════════
+// UI
+// ════════════════════════════════════════════════════════
+const msgsEl = document.getElementById('msgs');
+const inpEl  = document.getElementById('inp');
+const btnEl  = document.getElementById('sendBtn');
+const qrRowEl= document.getElementById('qrRow');
+
+function getTime(){ return new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}); }
+function scroll(){ setTimeout(()=>msgsEl.scrollTop=msgsEl.scrollHeight,60); }
+
+function addUser(text){
+  const d=document.createElement('div'); d.className='msg user';
+  d.innerHTML=`<div class="bubble">${text.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div><span class="msg-time">${getTime()}</span>`;
+  msgsEl.appendChild(d); scroll();
+}
+
+function addBot(html, products=[]){
+  const d=document.createElement('div'); d.className='msg bot';
+  let inner=`<div class="bot-wrap"><div class="bot-av">✦</div><div style="display:flex;flex-direction:column;">
+    <div class="bubble">${html}`;
+
+  if(products.length>0){
+    inner+=`<div class="shelf-label" style="margin-top:10px;">~ picked just for you ~</div><div class="product-shelf">`;
+    for(const p of products){
+      const disc=Math.round((1-p.price/p.mrp)*100);
+      inner+=`<div class="pcard">
+        <img class="pcard-img" src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1483985988355-763728e1935b?w=500&h=375&fit=crop'">
+        <div class="pcard-body">
+          <div class="pcard-name">${p.name}</div>
+          <div style="display:flex;align-items:baseline;">
+            <span class="pcard-price">₹${p.price.toLocaleString('en-IN')}</span>
+            <span class="pcard-mrp">₹${p.mrp.toLocaleString('en-IN')}</span>
+          </div>
+          <span class="pcard-tag">${disc}% off</span>
+        </div>
+      </div>`;
+    }
+    inner+=`</div>`;
+  } else if(html && !html.includes('searched everywhere')) {
+    inner+=`<div class="no-results">...hmm, nothing matched exactly — try tweaking the words a bit! 🧐</div>`;
+  }
+
+  inner+=`</div><span class="msg-time">${getTime()}</span></div></div>`;
+  d.innerHTML=inner; msgsEl.appendChild(d); scroll();
+}
+
+function showTyping(){
+  const e=document.createElement('div'); e.id='typing'; e.className='msg bot';
+  e.innerHTML=`<div class="bot-wrap"><div class="bot-av">✦</div><div class="typing-bub"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>`;
+  msgsEl.appendChild(e); scroll();
+}
+function hideTyping(){ const e=document.getElementById('typing'); if(e)e.remove(); }
+
+function setQR(signals){
+  const replies=getSmartQR(signals);
+  qrRowEl.innerHTML='';
+  replies.forEach(r=>{
+    const b=document.createElement('button'); b.className='qr';
+    // strip emoji for the actual query
+    b.textContent=r;
+    b.onclick=()=>send(r.replace(/^[^\w₹]+ ?/,'').trim());
+    qrRowEl.appendChild(b);
+  });
+}
+
+let busy=false;
+function send(override){
+  const text=(override||inpEl.value).trim();
+  if(!text||busy) return;
+  inpEl.value=''; inpEl.style.height='auto';
+  addUser(text); busy=true; btnEl.disabled=true; showTyping();
+
+  setTimeout(()=>{
+    hideTyping();
+    const {signals, maxPrice}=extractSignals(text);
+
+    // check for greeting
+    const lq=text.toLowerCase();
+    const isGreet=['hi','hello','hey','hola','namaste','sup','good morning','good evening'].some(g=>lq.includes(g));
+    if(isGreet && signals.size===0){
+      addBot(`hey!! 👋 <em>so happy you're here~</em><br><br>I can find you <strong>anything</strong> on Bazar.in — just combine keywords like:<br>• <em>"formal shoes men"</em><br>• <em>"casual jacket women"</em><br>• <em>"party dress under 2000"</em><br>• <em>"gym shorts women budget"</em><br><br>the more words, the more precise I get! ✨`);
+      setQR(new Set());
+    } else {
+      const results=matchProducts(signals, maxPrice);
+      const reply=buildReply(signals, maxPrice, results);
+      addBot(reply, results);
+      setQR(signals);
+    }
+
+    busy=false; btnEl.disabled=false; inpEl.focus();
+  }, 350+Math.random()*300);
+}
+
+btnEl.addEventListener('click',()=>send());
+inpEl.addEventListener('keydown',e=>{ if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();} });
+inpEl.addEventListener('input',()=>{ inpEl.style.height='auto'; inpEl.style.height=Math.min(inpEl.scrollHeight,96)+'px'; });
+
+// welcome
+setQR(new Set());
+addBot(`hey! 👋 <em>welcome to Bazar.in~</em><br><br>I'm smarter than your average chatbot 😄 try combining keywords like <strong>formal shoes men</strong>, <strong>casual jacket women</strong>, <strong>party dress under 2000</strong> or <strong>gym pants budget</strong> — I'll <em>intersect</em> all your signals and show exactly the right products! 🛍️`);
+</script>
+</body>
+</html>
