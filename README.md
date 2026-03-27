@@ -75,7 +75,7 @@ bazar.in/
 1. Clone the repository
 
 ```
-git clone https://github.com/yourusername/bazar.in.git
+git clone https://github.com/ibukkaaa/bazar.in.git
 ```
 
 2. Install dependencies
