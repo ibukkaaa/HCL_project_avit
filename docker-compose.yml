@@ -1,0 +1,30 @@
+# Bazar.in 🛒
+
+A full-stack e-commerce platform built with modern technologies.
+
+## Features
+
+- User authentication (JWT)
+- Product catalog & search
+- Order management system
+- Secure checkout (mock payment integration)
+- Admin dashboard
+
+## Tech Stack
+
+Frontend:
+- HTML
+-JS
+- CSS
+
+Backend:
+- Node.js
+- Express.js
+-js
+- SQL
+
+## Installation
+
+```bash
+npm install
+npm run dev

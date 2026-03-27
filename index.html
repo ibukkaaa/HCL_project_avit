@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loading</title>
+
+<style>
+/* Reset */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+/* Background */
+body{
+height:100vh;
+background:#0f0f0f;
+display:flex;
+align-items:center;
+justify-content:center;
+opacity:0;
+animation:fadeInPage 0.8s ease forwards;
+}
+
+/* Center square */
+.logo-box{
+width:180px;
+height:180px;
+background:#1b1b1b;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:16px;
+box-shadow:0 0 40px rgba(0,0,0,0.6);
+animation:logoFade 1s ease forwards;
+}
+
+/* Logo */
+.logo-box img{
+width:70%;
+height:auto;
+opacity:0;
+animation:logoAppear 0.8s ease forwards;
+animation-delay:0.3s;
+}
+
+/* Fade animations */
+@keyframes fadeInPage{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+@keyframes logoAppear{
+from{
+opacity:0;
+transform:scale(0.9);
+}
+to{
+opacity:1;
+transform:scale(1);
+}
+}
+
+@keyframes fadeOut{
+from{opacity:1;}
+to{opacity:0;}
+}
+
+/* Responsive */
+@media(max-width:600px){
+.logo-box{
+width:140px;
+height:140px;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="logo-box">
+<img src="front end/l.png" alt="Logo">
+</div>
+
+<script>
+/* Redirect after 1 second */
+setTimeout(function(){
+
+document.body.style.animation = "fadeOut 0.6s ease forwards";
+
+setTimeout(function(){
+window.location.href = "front end/bazar.in.html";
+},600);
+
+},1000);
+</script>
+
+</body>
+</html>
